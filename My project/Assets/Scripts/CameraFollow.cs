@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class IsometricCameraFollow : MonoBehaviour
+public class CameraFollow : MonoBehaviour
 {
     public Transform target;
     public Vector3 offset = new Vector3(-10f, 15f, -10f);
