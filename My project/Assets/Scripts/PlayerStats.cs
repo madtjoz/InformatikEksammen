@@ -6,6 +6,9 @@ public class PlayerStats : MonoBehaviour
     public float speedMulti = 1;
     public float wheigtlimit = 1;
     public float usedWheigt = 1;
+
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

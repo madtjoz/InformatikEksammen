@@ -1,17 +1,27 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Shops : MonoBehaviour, IInteractable
 {
-    string navn;
+    public string navn;
+    public int[] itemID;
+    public string[] items;
+    public float[] prices;
+    public float[] weight;
+
+
+
     void Start()
     {
         navn = gameObject.name;
     }
+
     public void Interact()
     {
         
         if (navn == "Seller 1 - Gronthandler")
         {
+
             Debug.Log(navn);
         }
         else if (navn == "Slagter")
