@@ -1,44 +1,49 @@
+using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Shops : MonoBehaviour, IInteractable
 {
     public string navn;
-    public int[] itemID;
-    public string[] items;
-    public float[] prices;
-    public float[] weight;
+    public GameObject shopUI;
+    public DataFetcher dataFetcher;
 
 
+    private void Start()
 
-    void Start()
     {
         navn = gameObject.name;
+        shopUI.SetActive(false);
+        StartCoroutine(UseDataWhenReady());
     }
 
     public void Interact()
     {
-        
-        if (navn == "Seller 1 - Gronthandler")
-        {
+        shopUI.SetActive(true);
+        Debug.Log("");
+    }
 
-            Debug.Log(navn);
-        }
-        else if (navn == "Slagter")
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.Log(navn);
+            shopUI.SetActive(false);
         }
-        else if (navn == "Seller 3 - Skov_hugger")
+    }
+    IEnumerator UseDataWhenReady()
+    {
+        // Vent til data er hentet
+        while (dataFetcher.fetchedItems == null)
         {
-            Debug.Log(navn);
+            yield return null;
         }
-        else if (navn == "Seller 4 - Miner")
+
+        // Brug data
+        foreach (ItemData item in dataFetcher.fetchedItems)
         {
-            Debug.Log(navn);
-        }
-        else
-        {
-            Debug.Log("Intet");
+            if (navn == item.Vendor)
+            {
+                Debug.Log("Item from ItemManager: " + item.Name);
+            }
         }
     }
 }
