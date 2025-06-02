@@ -8,7 +8,11 @@
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Water, UI
 - Active game object:
+<<<<<<< Updated upstream
   - Name: hus 5 - 6x3
+=======
+  - Name: Shop1
+>>>>>>> Stashed changes
   - Tag: Untagged
   - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
