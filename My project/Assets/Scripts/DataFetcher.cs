@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 [System.Serializable]
 public class ItemData
 {
-    public int ItemId;
+    public int ItemID;
     public string Name;
     public string Vendor;
     public int Price;
