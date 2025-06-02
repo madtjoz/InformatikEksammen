@@ -24,6 +24,7 @@ public class Shops : MonoBehaviour, IInteractable
 
     void Update()
     {
+        //Gør så Shop kan lukkes når escape rammes
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             shopUI.SetActive(false);
