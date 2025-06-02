@@ -1,12 +1,19 @@
 using System.Collections;
 using UnityEngine;
-
+using TMPro;
+using System.Linq;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 public class Shops : MonoBehaviour, IInteractable
 {
     public string navn;
     public GameObject shopUI;
     public DataFetcher dataFetcher;
-
+    public TextMeshProUGUI itemWeightUI;
+    public TextMeshProUGUI itemPriceUI;
+    public TextMeshProUGUI itemNameUI;
+    public GameObject[] UIlist;
+    List<int> IDList = new List<int>();
 
     private void Start()
 
@@ -46,13 +53,18 @@ public class Shops : MonoBehaviour, IInteractable
 
         Debug.Log("Shops: Data modtaget!");
 
-        foreach (ItemData item in dataFetcher.fetchedItems)
-        {
-            if (name == item.Vendor)
-            {
-            Debug.Log("Item fra Shops: " + item.Name);
-            }
 
+        foreach (ItemData item in dataFetcher.fetchedItems.Where(item => item.Vendor == navn))
+        {
+            IDList.Add(item.ItemId);
+            Debug.Log(IDList.Count);
+            //itemNameUI.text = item.Name;
+            //itemWeightUI.text = $"Weights - {item.Weight}";
+            //itemPriceUI.text = $"Price - {item.Price}";
+        }
+        for (int i = 0; i < UIlist.Length; i++)
+        {
+            UIlist.
         }
     }
 }
