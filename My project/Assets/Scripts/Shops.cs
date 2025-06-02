@@ -32,19 +32,27 @@ public class Shops : MonoBehaviour, IInteractable
     }
     IEnumerator UseDataWhenReady()
     {
-        // Vent til data er hentet
-        while (dataFetcher.fetchedItems == null)
+        Debug.Log("Shops: Venter på dataFetcher...");
+        while (dataFetcher == null)
         {
             yield return null;
         }
 
-        // Brug data
+        Debug.Log("Shops: dataFetcher fundet. Venter på data...");
+        while (dataFetcher.fetchedItems == null || dataFetcher.fetchedItems.Count == 0)
+        {
+            yield return null;
+        }
+
+        Debug.Log("Shops: Data modtaget!");
+
         foreach (ItemData item in dataFetcher.fetchedItems)
         {
-            if (navn == item.Vendor)
+            if (name == item.Vendor)
             {
-                Debug.Log("Item from ItemManager: " + item.Name);
+            Debug.Log("Item fra Shops: " + item.Name);
             }
+
         }
     }
 }

@@ -48,7 +48,7 @@ public class DataFetcher : MonoBehaviour
 
             foreach (ItemData item in fetchedItems)
             {
-                Debug.Log($"Item ID: {item.ItemId}, Navn: {item.Name}, Vednor: {item.Vendor}, Price: {item.Price}, weight: {item.Weight}");
+                //Debug.Log($"Item ID: {item.ItemId}, Navn: {item.Name}, Vednor: {item.Vendor}, Price: {item.Price}, weight: {item.Weight}");
             }
         }
     }
