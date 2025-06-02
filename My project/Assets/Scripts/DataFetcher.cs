@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-using static UnityEditor.Progress;
 
 [System.Serializable]
 public class ItemData
@@ -22,6 +21,8 @@ public class ItemDataList
 
 public class DataFetcher : MonoBehaviour
 {
+    public List<ItemData> fetchedItems; // <-- Denne liste er tilgængelig fra andre scripts
+
     void Start()
     {
         StartCoroutine(GetData());
@@ -39,18 +40,16 @@ public class DataFetcher : MonoBehaviour
         }
         else
         {
-            Debug.Log(www.downloadHandler.text);
             string json = "{\"Items\":" + www.downloadHandler.text + "}";
 
             ItemDataList itemData = JsonUtility.FromJson<ItemDataList>(json);
 
-            foreach (ItemData item in itemData.Items)
+            fetchedItems = itemData.Items;
+
+            foreach (ItemData item in fetchedItems)
             {
                 //Debug.Log($"Item ID: {item.ItemId}, Navn: {item.Name}, Vednor: {item.Vendor}, Price: {item.Price}, weight: {item.Weight}");
-                break;
             }
-            Debug.Log($"Item ID: {itemData.Items[3].Name}");
-
         }
     }
 }
