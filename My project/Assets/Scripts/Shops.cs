@@ -8,15 +8,19 @@ public class Shops : MonoBehaviour, IInteractable
 {
     public string navn;
     public GameObject shopUI;
+    public GameObject player;
     public DataFetcher dataFetcher;
     public GameObject[] UIList;
     public List<int> IDList = new List<int>();
+    PlayerMovement canmove;
+    
 
     private void Start()
 
     {
         navn = gameObject.name;
         shopUI.SetActive(false);
+        canmove = player.GetComponent<PlayerMovement>();
         StartCoroutine(UseDataWhenReady());
     }
 
@@ -24,6 +28,7 @@ public class Shops : MonoBehaviour, IInteractable
     {
         shopUI.SetActive(true);
         Debug.Log("");
+        canmove.canMove = false;
     }
 
     void Update()
@@ -32,6 +37,7 @@ public class Shops : MonoBehaviour, IInteractable
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             shopUI.SetActive(false);
+            canmove.canMove = true;
         }
     }
     IEnumerator UseDataWhenReady()
@@ -49,12 +55,10 @@ public class Shops : MonoBehaviour, IInteractable
         foreach (ItemData item in dataFetcher.fetchedItems.Where(item => item.Vendor == navn))
         {
             IDList.Add(item.ItemID);
-            Debug.Log(IDList.Count);
         }
 
         for (int i = 0; i < UIList.Length / 3; i++)
         {
-            Debug.Log("ting2");
             int søgtId = IDList[i];
             ItemData item2 = dataFetcher.fetchedItems.FirstOrDefault(i => i.ItemID == søgtId);
             if (item2 != null)
@@ -62,7 +66,6 @@ public class Shops : MonoBehaviour, IInteractable
                 UIList[i*3].GetComponent<TextMeshProUGUI>().text = $"{item2.Name}";
                 UIList[i * 3 + 1].GetComponent<TextMeshProUGUI>().text = $"Price: {item2.Price}";
                 UIList[i * 3 + 2].GetComponent<TextMeshProUGUI>().text = $"Weight: {item2.Weight}";
-                Debug.Log("ting");
             }
         }
     }
