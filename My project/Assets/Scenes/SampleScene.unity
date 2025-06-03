@@ -964,7 +964,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!136 &140350563
 CapsuleCollider:
@@ -1101,6 +1101,7 @@ MonoBehaviour:
   maxCarryWeight: 50
   weightUI: {fileID: 105399296}
   moneyUI: {fileID: 1485362215}
+  inventoryUI: {fileID: 1568400832}
 --- !u!1 &142200191
 GameObject:
   m_ObjectHideFlags: 0
@@ -9186,7 +9187,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navn: 
   shopUI: {fileID: 209962546}
-  HudUI: {fileID: 0}
   player: {fileID: 140350560}
   dataFetcher: {fileID: 140350568}
   UIList:
@@ -9766,7 +9766,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navn: 
   shopUI: {fileID: 1434501513}
-  HudUI: {fileID: 0}
   player: {fileID: 140350560}
   dataFetcher: {fileID: 140350568}
   UIList:
@@ -13101,6 +13100,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1030155245}
     m_Modifications:
     - target: {fileID: 1972692440804494992, guid: 3b3dde1ba5882724db147f8b6e4aebe0, type: 3}
+      propertyPath: playerStats
+      value: 
+      objectReference: {fileID: 140350569}
+    - target: {fileID: 1972692440804494992, guid: 3b3dde1ba5882724db147f8b6e4aebe0, type: 3}
       propertyPath: questUIText
       value: 
       objectReference: {fileID: 359628251}
@@ -13161,6 +13164,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1030155245}
     m_Modifications:
+    - target: {fileID: 1972692440804494992, guid: 3b3dde1ba5882724db147f8b6e4aebe0, type: 3}
+      propertyPath: playerStats
+      value: 
+      objectReference: {fileID: 140350569}
     - target: {fileID: 1972692440804494992, guid: 3b3dde1ba5882724db147f8b6e4aebe0, type: 3}
       propertyPath: questUIText
       value: 
@@ -14524,6 +14531,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1030155245}
     m_Modifications:
+    - target: {fileID: 1972692440804494992, guid: 3b3dde1ba5882724db147f8b6e4aebe0, type: 3}
+      propertyPath: playerStats
+      value: 
+      objectReference: {fileID: 140350569}
     - target: {fileID: 1972692440804494992, guid: 3b3dde1ba5882724db147f8b6e4aebe0, type: 3}
       propertyPath: questUIText
       value: 
@@ -15906,7 +15917,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navn: 
   shopUI: {fileID: 25345132}
-  HudUI: {fileID: 0}
   player: {fileID: 140350560}
   dataFetcher: {fileID: 140350568}
   UIList:
@@ -16321,6 +16331,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1030155245}
     m_Modifications:
     - target: {fileID: 1972692440804494992, guid: 3b3dde1ba5882724db147f8b6e4aebe0, type: 3}
+      propertyPath: playerStats
+      value: 
+      objectReference: {fileID: 140350569}
+    - target: {fileID: 1972692440804494992, guid: 3b3dde1ba5882724db147f8b6e4aebe0, type: 3}
       propertyPath: questUIText
       value: 
       objectReference: {fileID: 359628251}
@@ -16381,6 +16395,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1030155245}
     m_Modifications:
+    - target: {fileID: 1972692440804494992, guid: 3b3dde1ba5882724db147f8b6e4aebe0, type: 3}
+      propertyPath: playerStats
+      value: 
+      objectReference: {fileID: 140350569}
     - target: {fileID: 1972692440804494992, guid: 3b3dde1ba5882724db147f8b6e4aebe0, type: 3}
       propertyPath: questUIText
       value: 
@@ -18002,7 +18020,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navn: 
   shopUI: {fileID: 1120780038}
-  HudUI: {fileID: 0}
   player: {fileID: 140350560}
   dataFetcher: {fileID: 140350568}
   UIList:

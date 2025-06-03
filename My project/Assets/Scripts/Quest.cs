@@ -6,7 +6,6 @@ using UnityEngine;
 public class Quest
 {
     public bool isActive;
-
     public string Objective;
     public int Reward;
 

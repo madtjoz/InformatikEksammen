@@ -1,16 +1,32 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-using System.Collections;
-using UnityEngine.UI;
 using TMPro;
+
 public class QuestGiver : MonoBehaviour, IInteractable
 {
     public Quest quest;
     public DataFetcher dataFetcher;
     public TMP_Text questUIText;
+    public PlayerStats playerStats;
+
+    void Start()
+    {
+        // Automatisk find PlayerStats hvis ikke sat
+        if (playerStats == null)
+        {
+            GameObject playerObj = GameObject.FindWithTag("Player");
+            if (playerObj != null)
+            {
+                playerStats = playerObj.GetComponent<PlayerStats>();
+            }
+        }
+    }
+
     public void Interact()
     {
+        Debug.Log("Interacted with QuestGiver");
+
         if (quest == null)
         {
             GenerateQuest();
@@ -19,28 +35,34 @@ public class QuestGiver : MonoBehaviour, IInteractable
         {
             CompleteQuest();
         }
+        else
+        {
+            Debug.Log("Quest aktiv men endnu ikke fÃ¦rdiggjort.");
+            ShowQuestInUI(); // Vis den aktive quest igen
+        }
     }
 
     private void GenerateQuest()
     {
+        Debug.Log("ForsÃ¸ger at generere ny quest...");
+
         if (dataFetcher == null || dataFetcher.fetchedItems == null || dataFetcher.fetchedItems.Count == 0)
         {
-            Debug.LogWarning("DataFetcher or item list is not ready.");
+            Debug.LogWarning("DataFetcher eller fetchedItems er ikke klar.");
             return;
         }
 
         quest = new Quest();
         quest.isActive = true;
-        quest.Reward = Random.Range(20, 101); // penge har ikke bestemt mængde endnu 
+        quest.Reward = Random.Range(20, 101);
 
-        // Vælg 1–3 tilfældige unikke varer fra databasen
         var shuffledItems = dataFetcher.fetchedItems.OrderBy(x => Random.value).ToList();
         int itemCount = Random.Range(1, 4);
 
         for (int i = 0; i < itemCount; i++)
         {
             var item = shuffledItems[i];
-            int requiredAmount = Random.Range(1, 4); // en mængde af de varerr 1-3
+            int requiredAmount = Random.Range(1, 4);
 
             quest.requiredItems.Add(new QuestItemRequirement
             {
@@ -58,69 +80,68 @@ public class QuestGiver : MonoBehaviour, IInteractable
 
         quest.Objective = objectiveText.TrimEnd(',', ' ');
 
-        Debug.Log("Ny quest genereret: " + quest.Objective);
+        Debug.Log("Quest genereret: " + quest.Objective);
         ShowQuestInUI();
     }
-    void ShowQuestInUI()
+
+    private void ShowQuestInUI()
     {
         if (questUIText != null && quest != null)
         {
             questUIText.text = quest.Objective;
         }
     }
+
     private bool CheckIfQuestCompleted()
     {
-        PlayerStats player = FindObjectOfType<PlayerStats>();
-        if (player == null)
+        if (playerStats == null)
         {
-            Debug.LogWarning("PlayerStats not found.");
+            Debug.LogWarning("playerStats reference mangler.");
             return false;
         }
 
         foreach (var requirement in quest.requiredItems)
         {
-            var playerItem = player.processedItems.Find(x => x.name == requirement.itemName);
+            var playerItem = playerStats.processedItems.Find(x => x.name.Equals(requirement.itemName, System.StringComparison.OrdinalIgnoreCase));
             if (playerItem == null || playerItem.amount < requirement.requiredAmount)
             {
-                return false; // Mangler item eller for lidt
+                Debug.Log($"Mangler {requirement.requiredAmount}x {requirement.itemName}");
+                return false;
             }
         }
 
-        return true; // Har alt
+        Debug.Log("Alle krav opfyldt!");
+        return true;
     }
+
     private void CompleteQuest()
     {
-        PlayerStats player = FindObjectOfType<PlayerStats>();
-        if (player == null)
+        if (playerStats == null)
         {
-            Debug.LogWarning("PlayerStats not found.");
+            Debug.LogWarning("playerStats reference mangler.");
             return;
         }
 
-        // Fjerne items fra spillerens inventar
         foreach (var requirement in quest.requiredItems)
         {
-            var playerItem = player.processedItems.Find(x => x.name == requirement.itemName);
+            var playerItem = playerStats.processedItems.Find(x => x.name.Equals(requirement.itemName, System.StringComparison.OrdinalIgnoreCase));
             if (playerItem != null)
             {
                 playerItem.amount -= requirement.requiredAmount;
             }
         }
 
-        // Give belønning
-        player.playerMoney += quest.Reward;
-        Debug.Log($"Quest færdig! Du fik {quest.Reward} penge.");
+        playerStats.playerMoney += quest.Reward;
+        Debug.Log($"Quest fÃ¦rdig! Du fik {quest.Reward} kr.");
 
-        // Opdatere UI
         if (questUIText != null)
         {
-            questUIText.text = $"Afleveret! Du fik {quest.Reward} kr.";
+            questUIText.text = $"âœ” Quest fuldfÃ¸rt!\n+{quest.Reward} kr.";
         }
 
         quest.isActive = false;
         quest = null;
 
-        // Opdatere spillerens inventory UI (hvis du har en metode til det)
-        player.UpdateInventoryText();
+        playerStats.UpdateInventoryText();
     }
 }
