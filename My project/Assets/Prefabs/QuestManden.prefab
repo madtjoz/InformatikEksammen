@@ -130,7 +130,10 @@ MonoBehaviour:
     Reward: 0
     requiredItems: []
   dataFetcher: {fileID: 1860932502689432781}
+  questEntryPrefab: {fileID: 6470271777745496050, guid: c49f1cceec75896418de0c99c914ffb2, type: 3}
+  questListContainer: {fileID: 0}
   questUIText: {fileID: 0}
+  playerStats: {fileID: 0}
 --- !u!114 &1860932502689432781
 MonoBehaviour:
   m_ObjectHideFlags: 0

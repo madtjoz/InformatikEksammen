@@ -136,9 +136,6 @@ public class PlayerStats : MonoBehaviour
                 result += $"{item.name}: {item.amount}\n";
             }
         }
-
         inventoryUI.text = result;
     }
-
-    
 }
