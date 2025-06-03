@@ -12,6 +12,7 @@ public class QuestGiver : MonoBehaviour, IInteractable
 
     void Start()
     {
+        quest = null;
         // Automatisk find PlayerStats hvis ikke sat
         if (playerStats == null)
         {
@@ -26,7 +27,6 @@ public class QuestGiver : MonoBehaviour, IInteractable
     public void Interact()
     {
         Debug.Log("Interacted with QuestGiver");
-
         if (quest == null)
         {
             GenerateQuest();
@@ -54,7 +54,7 @@ public class QuestGiver : MonoBehaviour, IInteractable
 
         quest = new Quest();
         quest.isActive = true;
-        quest.Reward = Random.Range(20, 101);
+        quest.Reward = Random.Range(150, 250);
 
         var shuffledItems = dataFetcher.fetchedItems.OrderBy(x => Random.value).ToList();
         int itemCount = Random.Range(1, 4);
@@ -136,7 +136,7 @@ public class QuestGiver : MonoBehaviour, IInteractable
 
         if (questUIText != null)
         {
-            questUIText.text = $"✔ Quest fuldført!\n+{quest.Reward} kr.";
+            questUIText.text = $"Quest fuldført!\n+{quest.Reward} kr.";
         }
 
         quest.isActive = false;

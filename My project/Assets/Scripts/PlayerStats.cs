@@ -27,7 +27,7 @@ public class PlayerStats : MonoBehaviour
     public List<ItemEntry> processedItems = new List<ItemEntry>();
 
     public int playerMoney = 100;
-    public float maxCarryWeight = 500f;
+    public float maxCarryWeight = 150f;
     public TextMeshProUGUI weightUI;
     public TextMeshProUGUI moneyUI;
     public TextMeshProUGUI inventoryUI;
@@ -54,7 +54,6 @@ public class PlayerStats : MonoBehaviour
         foreach (ItemData item in dataFetcher.fetchedItems)
         {
             processedItems.Add(new ItemEntry(item.Name, 0, item.Price, item.Weight));
-            Debug.Log($"Added item: {item.Name}, Price: {item.Price}, Weight: {item.Weight}");
         }
     }
 
@@ -140,4 +139,6 @@ public class PlayerStats : MonoBehaviour
 
         inventoryUI.text = result;
     }
+
+    
 }

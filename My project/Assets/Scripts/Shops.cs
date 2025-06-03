@@ -13,7 +13,7 @@ public class Shops : MonoBehaviour, IInteractable
     public GameObject[] UIList;
     public List<int> IDList = new List<int>();
     PlayerMovement canmove;
-    
+
 
     private void Start()
 
@@ -63,11 +63,16 @@ public class Shops : MonoBehaviour, IInteractable
             ItemData item2 = dataFetcher.fetchedItems.FirstOrDefault(i => i.ItemID == søgtId);
             if (item2 != null)
             {
-                UIList[i*3].GetComponent<TextMeshProUGUI>().text = $"{item2.Name}";
+                UIList[i * 3].GetComponent<TextMeshProUGUI>().text = $"{item2.Name}";
                 UIList[i * 3 + 1].GetComponent<TextMeshProUGUI>().text = $"Price: {item2.Price}";
                 UIList[i * 3 + 2].GetComponent<TextMeshProUGUI>().text = $"Weight: {item2.Weight}";
             }
         }
+    }
+    public void CloseShop()
+    {
+        shopUI.SetActive(false);
+        canmove.canMove = true;
     }
 }
 
