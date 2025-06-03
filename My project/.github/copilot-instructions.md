@@ -2,7 +2,7 @@
 - Project name: My project
 - Unity version: Unity 6000.0.28f1
 - Active game object:
-  - Name: Buy
+  - Name: Ground
   - Tag: Untagged
-  - Layer: UI
+  - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
