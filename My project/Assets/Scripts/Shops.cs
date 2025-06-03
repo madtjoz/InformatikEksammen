@@ -9,7 +9,7 @@ public class Shops : MonoBehaviour, IInteractable
     public string navn;
     public GameObject shopUI;
     public DataFetcher dataFetcher;
-    public GameObject[] UIlist;
+    public GameObject[] UIList;
     public List<int> IDList = new List<int>();
 
     private void Start()
@@ -52,20 +52,17 @@ public class Shops : MonoBehaviour, IInteractable
             Debug.Log(IDList.Count);
         }
 
-
-
-
-
-        for (int i = 0; i < UIlist.Length / 3; i++)
+        for (int i = 0; i < UIList.Length / 3; i++)
         {
+            Debug.Log("ting2");
             int søgtId = IDList[i];
             ItemData item2 = dataFetcher.fetchedItems.FirstOrDefault(i => i.ItemID == søgtId);
             if (item2 != null)
             {
-                UIlist[i].GetComponentInChildren<TextMeshProUGUI>().text = item2.Name;
-                UIlist[i+1].GetComponentInChildren<TextMeshProUGUI>().text = $"weight - {item2.Weight}";
-                UIlist[i+2].GetComponentInChildren<TextMeshProUGUI>().text = $"price - {item2.Price}";                
-                Debug.Log("Fundet item med ID 3: " + item2.Name);
+                UIList[i*3].GetComponent<TextMeshProUGUI>().text = $"{item2.Name}";
+                UIList[i * 3 + 1].GetComponent<TextMeshProUGUI>().text = $"Price: {item2.Price}";
+                UIList[i * 3 + 2].GetComponent<TextMeshProUGUI>().text = $"Weight: {item2.Weight}";
+                Debug.Log("ting");
             }
         }
     }
