@@ -11,9 +11,13 @@ public class QuestGiver : MonoBehaviour, IInteractable
     public TMP_Text questUIText;
     public void Interact()
     {
-        if (quest == null || !quest.isActive)
+        if (quest == null)
         {
             GenerateQuest();
+        }
+        else if (quest.isActive && CheckIfQuestCompleted())
+        {
+            CompleteQuest();
         }
     }
 
@@ -63,5 +67,60 @@ public class QuestGiver : MonoBehaviour, IInteractable
         {
             questUIText.text = quest.Objective;
         }
+    }
+    private bool CheckIfQuestCompleted()
+    {
+        PlayerStats player = FindObjectOfType<PlayerStats>();
+        if (player == null)
+        {
+            Debug.LogWarning("PlayerStats not found.");
+            return false;
+        }
+
+        foreach (var requirement in quest.requiredItems)
+        {
+            var playerItem = player.processedItems.Find(x => x.name == requirement.itemName);
+            if (playerItem == null || playerItem.amount < requirement.requiredAmount)
+            {
+                return false; // Mangler item eller for lidt
+            }
+        }
+
+        return true; // Har alt
+    }
+    private void CompleteQuest()
+    {
+        PlayerStats player = FindObjectOfType<PlayerStats>();
+        if (player == null)
+        {
+            Debug.LogWarning("PlayerStats not found.");
+            return;
+        }
+
+        // Fjerne items fra spillerens inventar
+        foreach (var requirement in quest.requiredItems)
+        {
+            var playerItem = player.processedItems.Find(x => x.name == requirement.itemName);
+            if (playerItem != null)
+            {
+                playerItem.amount -= requirement.requiredAmount;
+            }
+        }
+
+        // Give belønning
+        player.playerMoney += quest.Reward;
+        Debug.Log($"Quest færdig! Du fik {quest.Reward} penge.");
+
+        // Opdatere UI
+        if (questUIText != null)
+        {
+            questUIText.text = $"Afleveret! Du fik {quest.Reward} kr.";
+        }
+
+        quest.isActive = false;
+        quest = null;
+
+        // Opdatere spillerens inventory UI (hvis du har en metode til det)
+        player.UpdateInventoryText();
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 [System.Serializable]
 public class ItemEntry
@@ -27,6 +28,9 @@ public class PlayerStats : MonoBehaviour
 
     public int playerMoney = 100;
     public float maxCarryWeight = 500f;
+    public TextMeshProUGUI weightUI;
+    public TextMeshProUGUI moneyUI;
+    public TextMeshProUGUI inventoryUI;
 
     void Start()
     {
@@ -79,7 +83,10 @@ public class PlayerStats : MonoBehaviour
         }
 
         playerMoney -= entry.price;
+        moneyUI.text = $"Money: {playerMoney}";
+        weightUI.text = $"Weight: {newWeight}/{maxCarryWeight}";
         entry.amount++;
+        UpdateInventoryText();
         Debug.Log($"Bought {itemName} for {entry.price}. New amount: {entry.amount}. Money left: {playerMoney}. Total weight: {newWeight} / {maxCarryWeight}");
     }
 
@@ -95,8 +102,12 @@ public class PlayerStats : MonoBehaviour
         if (entry.amount > 0)
         {
             entry.amount--;
+            UpdateInventoryText();
             playerMoney += entry.price; // Or: entry.price / 2 for half-price
-            Debug.Log($"Sold {itemName} for {entry.price}. New amount: {entry.amount}. Money now: {playerMoney}");
+            moneyUI.text = $"Money: {playerMoney}";
+            float newWeight = GetTotalWeight();
+            weightUI.text = $"Weight: {newWeight}/{maxCarryWeight}";
+            Debug.Log($"Sold {itemName} for {entry.price}. New amount: {entry.amount}. Money now: {playerMoney} Weight: {newWeight}");
         }
         else
         {
@@ -112,5 +123,21 @@ public class PlayerStats : MonoBehaviour
             total += item.amount * item.weight;
         }
         return total;
+    }
+    public void UpdateInventoryText()
+    {
+        if (inventoryUI == null) return;
+
+        string result = "Inventory:\n";
+
+        foreach (var item in processedItems)
+        {
+            if (item.amount > 0)
+            {
+                result += $"{item.name}: {item.amount}\n";
+            }
+        }
+
+        inventoryUI.text = result;
     }
 }
