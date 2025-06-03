@@ -8,18 +8,19 @@ public class Shops : MonoBehaviour, IInteractable
 {
     public string navn;
     public GameObject shopUI;
+    public GameObject player;
     public DataFetcher dataFetcher;
-    public TextMeshProUGUI itemWeightUI;
-    public TextMeshProUGUI itemPriceUI;
-    public TextMeshProUGUI itemNameUI;
-    public GameObject[] UIlist;
-    List<int> IDList = new List<int>();
+    public GameObject[] UIList;
+    public List<int> IDList = new List<int>();
+    PlayerMovement canmove;
+    
 
     private void Start()
 
     {
         navn = gameObject.name;
         shopUI.SetActive(false);
+        canmove = player.GetComponent<PlayerMovement>();
         StartCoroutine(UseDataWhenReady());
     }
 
@@ -27,6 +28,7 @@ public class Shops : MonoBehaviour, IInteractable
     {
         shopUI.SetActive(true);
         Debug.Log("");
+        canmove.canMove = false;
     }
 
     void Update()
@@ -35,36 +37,36 @@ public class Shops : MonoBehaviour, IInteractable
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             shopUI.SetActive(false);
+            canmove.canMove = true;
         }
     }
     IEnumerator UseDataWhenReady()
     {
-        Debug.Log("Shops: Venter på dataFetcher...");
         while (dataFetcher == null)
         {
             yield return null;
         }
 
-        Debug.Log("Shops: dataFetcher fundet. Venter på data...");
         while (dataFetcher.fetchedItems == null || dataFetcher.fetchedItems.Count == 0)
         {
             yield return null;
         }
 
-        Debug.Log("Shops: Data modtaget!");
-
-
         foreach (ItemData item in dataFetcher.fetchedItems.Where(item => item.Vendor == navn))
         {
-            IDList.Add(item.ItemId);
-            Debug.Log(IDList.Count);
-            //itemNameUI.text = item.Name;
-            //itemWeightUI.text = $"Weights - {item.Weight}";
-            //itemPriceUI.text = $"Price - {item.Price}";
+            IDList.Add(item.ItemID);
         }
-        for (int i = 0; i < UIlist.Length; i++)
+
+        for (int i = 0; i < UIList.Length / 3; i++)
         {
-            UIlist.
+            int søgtId = IDList[i];
+            ItemData item2 = dataFetcher.fetchedItems.FirstOrDefault(i => i.ItemID == søgtId);
+            if (item2 != null)
+            {
+                UIList[i*3].GetComponent<TextMeshProUGUI>().text = $"{item2.Name}";
+                UIList[i * 3 + 1].GetComponent<TextMeshProUGUI>().text = $"Price: {item2.Price}";
+                UIList[i * 3 + 2].GetComponent<TextMeshProUGUI>().text = $"Weight: {item2.Weight}";
+            }
         }
     }
 }

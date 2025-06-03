@@ -3,9 +3,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f;         
+    public float moveSpeed = 10f;         
     private Rigidbody rb;
     private Vector3 movement;
+    public bool canMove = true;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -21,6 +22,10 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        if (canMove)
+        {
+            rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        }
+
     }
 }

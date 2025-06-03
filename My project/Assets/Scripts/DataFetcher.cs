@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 [System.Serializable]
 public class ItemData
 {
-    public int ItemId;
+    public int ItemID;
     public string Name;
     public string Vendor;
     public int Price;
@@ -40,9 +40,12 @@ public class DataFetcher : MonoBehaviour
         }
         else
         {
+            Debug.Log("RAW DATA: " + www.downloadHandler.text);
+
             string json = "{\"Items\":" + www.downloadHandler.text + "}";
 
-            ItemDataList itemData = JsonUtility.FromJson<ItemDataList>(json);
+            ItemDataList itemDataList = JsonUtility.FromJson<ItemDataList>(json);
+            ItemDataList itemData = itemDataList;
 
             fetchedItems = itemData.Items;
 
