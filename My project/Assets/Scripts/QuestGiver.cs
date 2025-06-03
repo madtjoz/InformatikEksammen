@@ -1,12 +1,14 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Collections;
+using UnityEngine.UI;
+using TMPro;
 public class QuestGiver : MonoBehaviour, IInteractable
 {
     public Quest quest;
     public DataFetcher dataFetcher;
-
+    public TMP_Text questUIText;
     public void Interact()
     {
         if (quest == null || !quest.isActive)
@@ -53,5 +55,13 @@ public class QuestGiver : MonoBehaviour, IInteractable
         quest.Objective = objectiveText.TrimEnd(',', ' ');
 
         Debug.Log("Ny quest genereret: " + quest.Objective);
+        ShowQuestInUI();
+    }
+    void ShowQuestInUI()
+    {
+        if (questUIText != null && quest != null)
+        {
+            questUIText.text = quest.Objective;
+        }
     }
 }

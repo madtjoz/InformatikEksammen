@@ -40,6 +40,8 @@ public class DataFetcher : MonoBehaviour
         }
         else
         {
+            Debug.Log("RAW DATA: " + www.downloadHandler.text);
+
             string json = "{\"Items\":" + www.downloadHandler.text + "}";
 
             ItemDataList itemDataList = JsonUtility.FromJson<ItemDataList>(json);
