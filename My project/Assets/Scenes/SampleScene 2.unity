@@ -1297,9 +1297,9 @@ GameObject:
   - component: {fileID: 1104132190}
   - component: {fileID: 1104132189}
   - component: {fileID: 1104132188}
-  - component: {fileID: 1104132187}
+  - component: {fileID: 1104132191}
   m_Layer: 0
-  m_Name: QuestGiver
+  m_Name: QuestManden
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1320,22 +1320,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1030155245}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1104132187
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1104132185}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65bf4fe937f54a948b5ee71ca625ae20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  quest:
-    isActive: 0
-    Objective: 
-    Reward: 0
 --- !u!136 &1104132188
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1412,6 +1396,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1104132185}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1104132191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1104132185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65bf4fe937f54a948b5ee71ca625ae20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  quest:
+    isActive: 0
+    Objective: 
+    Reward: 0
 --- !u!1 &1104141383
 GameObject:
   m_ObjectHideFlags: 0

@@ -56,7 +56,7 @@ public class Shops : MonoBehaviour, IInteractable
 
         foreach (ItemData item in dataFetcher.fetchedItems.Where(item => item.Vendor == navn))
         {
-            IDList.Add(item.ItemId);
+            IDList.Add(item.ItemID);
             Debug.Log(IDList.Count);
             //itemNameUI.text = item.Name;
             //itemWeightUI.text = $"Weights - {item.Weight}";
@@ -64,7 +64,7 @@ public class Shops : MonoBehaviour, IInteractable
         }
         for (int i = 0; i < UIlist.Length; i++)
         {
-            UIlist.
+            //UIlist.
         }
     }
 }

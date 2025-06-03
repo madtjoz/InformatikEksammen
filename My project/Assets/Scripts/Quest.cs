@@ -9,4 +9,14 @@ public class Quest
 
     public string Objective;
     public int Reward;
+
+    public List<QuestItemRequirement> requiredItems = new List<QuestItemRequirement>();
+}
+
+[System.Serializable]
+public class QuestItemRequirement
+{
+    public int itemId;
+    public string itemName;
+    public int requiredAmount;
 }
